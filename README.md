@@ -24,3 +24,4 @@
 ***
 
 ###### Статус прокрытия кода тестами:
+[![Build status](https://ci.appveyor.com/api/projects/status/c7o57ak90yqys1b8?svg=true)](https://ci.appveyor.com/project/Nikolay87-ru/ajs-homeworks-typescript)
