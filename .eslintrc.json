@@ -1,9 +1,16 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "commonjs": true
   },
   "plugins": ["node"],
+  "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "script"
+  },
   "rules": {
-    "node/no-missing-require": "error"
+    "node/no-missing-require": "error",
+    "node/no-unsupported-features/es-syntax": "off"
   }
 }
