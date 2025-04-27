@@ -12,6 +12,6 @@ export default class Cart {
     }
 
     getItemPriceSum(): number {
-        return this._items.reduce((sum: number, item: Buyable): number => sum + item.price, 0)
+        return this._items.reduce((sum: number, item: Buyable): number => sum + item.price, 0);
     }
 }
