@@ -70,4 +70,18 @@ describe("Cart", () => {
       expect(cart.getItemsPriceDiscountSum(50)).toBe(1950);
     });
   });
+
+  describe("Remove item", () => {
+    test("should remove added cart item by id", () => {
+      cart.add(movie);
+      cart.add(book);
+      cart.add(musicAlbum);
+
+      cart.remove(1001);
+      cart.remove(1010);
+      
+      expect(cart.items).toEqual([musicAlbum]);
+      expect(cart.items).toHaveLength(1);
+    });
+  });
 });
