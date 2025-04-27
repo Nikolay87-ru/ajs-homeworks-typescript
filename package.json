@@ -15,8 +15,11 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "build": "tsc && webpack",
+    "start": "webpack serve --open",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",
