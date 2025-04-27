@@ -1,7 +1,5 @@
 import "./css/style.css";
 
-// import "./js/Team";
+import "./ts/app";
 
-// import "./js/ErrorRepository";
 
-// import "./js/Settings";
