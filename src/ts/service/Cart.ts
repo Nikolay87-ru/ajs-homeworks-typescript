@@ -7,6 +7,13 @@ export default class Cart {
         this._items.push(item);
     }
 
+    remove(id: number): void {
+        const index = this._items.findIndex(item => item.id === id);
+        if (index !== -1) {
+            this._items.splice(index, 1);
+        }
+    }
+
     get items(): Buyable[] {
         return [...this._items]; 
     }
@@ -15,7 +22,7 @@ export default class Cart {
         return this._items.reduce((sum: number, item: Buyable): number => sum + item.price, 0);
     }
 
-    getItemsPriceDiscountSum(discout: number): number {
-        return this.getItemsPriceSum() - this.getItemsPriceSum() * (discout / 100)
+    getItemsPriceDiscountSum(discount: number): number {
+        return this.getItemsPriceSum() * (1 - discount / 100);
     }
 }

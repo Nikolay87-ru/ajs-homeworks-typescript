@@ -25,7 +25,7 @@ describe("Cart", () => {
 
   describe("New cart", () => {
     test("new cart should be empty", () => {
-      expect(cart.items.length).toHaveLength(0);
+      expect(cart.items).toHaveLength(0);
     });
   });
 
@@ -67,6 +67,7 @@ describe("Cart", () => {
       cart.add(musicAlbum);
       
       expect(cart.getItemsPriceDiscountSum(10)).toBe(3510);
+      expect(cart.getItemsPriceDiscountSum(50)).toBe(1950);
     });
   });
 });
