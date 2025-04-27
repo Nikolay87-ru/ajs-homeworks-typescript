@@ -1,16 +1,31 @@
 {
   "env": {
     "node": true,
-    "commonjs": true
+    "commonjs": true,
+    "es2021": true
   },
   "plugins": ["node"],
   "extends": ["eslint:recommended", "plugin:node/recommended"],
   "parserOptions": {
     "ecmaVersion": "latest",
-    "sourceType": "script"
+    "sourceType": "module"  
   },
   "rules": {
     "node/no-missing-require": "error",
-    "node/no-unsupported-features/es-syntax": "off"
-  }
+    "node/no-unsupported-features/es-syntax": "off",
+    "node/no-unpublished-require": "off",  
+    "node/no-extraneous-require": "off",  
+    "node/global-require": "off"  
+  },
+  "overrides": [
+    {
+      "files": ["webpack.config.js", "*.config.js"],
+      "rules": {
+        "node/no-unpublished-require": "off",
+        "node/no-extraneous-require": "off",
+        "strict": "off",
+        "no-undef": "off"
+      }
+    }
+  ]
 }

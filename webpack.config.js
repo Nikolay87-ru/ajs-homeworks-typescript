@@ -1,3 +1,4 @@
+/* eslint-disable node/global-require, node/no-extraneous-require */
 const path = require("node:path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
