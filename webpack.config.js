@@ -1,5 +1,8 @@
 import { resolve as _resolve, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import HtmlWebPackPlugin from "html-webpack-plugin";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 const config = {
   entry: "./src/index.ts",
