@@ -5,49 +5,68 @@ import Book from "../domain/Book";
 
 describe("Cart", () => {
   let cart: Cart;
+  const movie = new Movie(
+    1010,
+    "The Avengers",
+    "Joss Whedon",
+    1000,
+    "2012",
+    "USA",
+    "Avengers Assemble!",
+    ["fantasy", "action", "adventure"],
+    "143 мин"
+  );
+  const book = new Book(1001, "War and Piece", "Leo Tolstoy", 2000, 1225);
+  const musicAlbum = new MusicAlbum(1008, "Meteora", "Linkin Park", 900);
 
   beforeEach(() => {
     cart = new Cart();
   });
 
-  test("new cart should be empty", () => {
-    expect(cart.items.length).toBe(0);
+  describe("New cart", () => {
+    test("new cart should be empty", () => {
+      expect(cart.items.length).toHaveLength(0);
+    });
   });
 
-  test("should add movie to cart", () => {
-    const movie = new Movie(
-      1010,
-      "The Avengers",
-      "Joss Whedon",
-      1000,
-      "2012",
-      "USA",
-      "Avengers Assemble!",
-      ["fantasy", "action", "adventure"],
-      "143 мин"
-    );
+  describe("Adding items", () => {
+    test("should add movie", () => {
+      cart.add(movie);
+      expect(cart.items).toContain(movie);
+      expect(cart.items).toHaveLength(1);
+    });
 
-    cart.add(movie);
-    expect(cart.items.length).toBe(1);
-    expect(cart.items[0]).toBe(movie);
+    test("should add some items", () => {
+      cart.add(movie);
+      cart.add(book);
+      cart.add(musicAlbum);
+      
+      expect(cart.items).toEqual([movie, book, musicAlbum]);
+      expect(cart.items).toHaveLength(3);
+    });
   });
 
-  test("should get items total sum", () => {
-    cart.add(new Book(1001, "War and Piece", "Leo Tolstoy", 2000, 1225));
-    cart.add(new MusicAlbum(1008, "Meteora", "Linkin Park", 900));
-    cart.add(
-      new Movie(
-        1010,
-        "The Avengers",
-        "Joss Whedon",
-        1000,
-        "2012",
-        "USA",
-        "Avengers Assemble!",
-        ["fantasy", "action", "adventure"],
-        "143 мин"
-      )
-    );
-    expect(cart.getItemsPriceSum()).toBe(3900);
+  describe("Price calculations", () => {
+    test("should calculate total price", () => {
+      cart.add(movie);
+      cart.add(book);
+      cart.add(musicAlbum);
+      
+      expect(cart.getItemsPriceSum()).toBe(3900);
+    });
+
+    test("should return 0 for empty cart", () => {
+      expect(cart.getItemsPriceSum()).toBe(0);
+    });
+  });
+
+  describe("Price calculations with discount", () => {
+    test("should calculate total price with discount", () => {
+      cart.add(movie);
+      cart.add(book);
+      cart.add(musicAlbum);
+      
+      expect(cart.getItemsPriceDiscountSum(10)).toBe(3510);
+    });
   });
 });
