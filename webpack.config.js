@@ -1,38 +1,25 @@
-/* eslint-disable node/global-require, node/no-extraneous-require */
-const path = require("node:path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+import { resolve as _resolve, join } from "node:path";
+import HtmlWebPackPlugin from "html-webpack-plugin";
 
-module.exports = {
+const config = {
   entry: "./src/index.ts",
   resolve: {
     extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: _resolve(__dirname, "dist"),
+    filename: "bundle.js",
   },
   module: {
     rules: [
       {
-        test: /\.(?:js|ts)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-      },
-      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: "ts-loader",
-        },
+        use: "ts-loader",
       },
       {
         test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-          },
-        ],
+        use: "html-loader",
       },
       {
         test: /\.css$/i,
@@ -54,13 +41,15 @@ module.exports = {
       filename: "./index.html",
     }),
   ],
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: join(__dirname, "dist"),
     },
     compress: true,
     port: 8080,
-    hot: true
-  }
+    hot: true,
+  },
 };
+
+export default config;
