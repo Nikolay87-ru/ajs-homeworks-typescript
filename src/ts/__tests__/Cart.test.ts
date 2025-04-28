@@ -61,6 +61,16 @@ describe("Cart", () => {
       expect(cart.items).toHaveLength(1);
     });
 
+    test("should increase quantity and price when adding same smartphone", () => {
+      cart.add(smartphone);
+      cart.add(smartphone);
+      
+      expect(cart.items).toHaveLength(1);
+      const item = cart.items[0] as Smartphone;
+      expect(item.quantity).toBe(2);
+      expect(item.price).toBe(120000); 
+    });
+
     test("should add some items", () => {
       cart.add(movie);
       cart.add(book);
@@ -77,9 +87,15 @@ describe("Cart", () => {
       cart.add(book);
       cart.add(musicAlbum);
       cart.add(musicAlbum);
+      cart.add(smartphone);
+      cart.add(smartphone);
 
-      expect(cart.items).toEqual([movie, book, musicAlbum]);
-      expect(cart.items).toHaveLength(3);
+      const phone = cart.items.find(i => i.id === 1020) as Smartphone;
+      expect(phone.quantity).toBe(2);
+      expect(phone.price).toBe(120000);
+
+      expect(cart.items).toEqual([movie, book, musicAlbum, smartphone]);
+      expect(cart.items).toHaveLength(4);
     });
   });
 
@@ -88,8 +104,9 @@ describe("Cart", () => {
       cart.add(movie);
       cart.add(book);
       cart.add(musicAlbum);
+      cart.add(smartphone);
 
-      expect(cart.getItemsPriceSum()).toBe(3900);
+      expect(cart.getItemsPriceSum()).toBe(63900);
     });
 
     test("should return 0 for empty cart", () => {
@@ -102,9 +119,11 @@ describe("Cart", () => {
       cart.add(movie);
       cart.add(book);
       cart.add(musicAlbum);
+      cart.add(smartphone);
+      cart.add(smartphone);
 
-      expect(cart.getItemsPriceDiscountSum(10)).toBe(3510);
-      expect(cart.getItemsPriceDiscountSum(50)).toBe(1950);
+      expect(cart.getItemsPriceDiscountSum(10)).toBe(111510);
+      expect(cart.getItemsPriceDiscountSum(50)).toBe(61950);
     });
   });
 
@@ -120,5 +139,26 @@ describe("Cart", () => {
       expect(cart.items).toEqual([musicAlbum]);
       expect(cart.items).toHaveLength(1);
     });
+  });
+
+  test("should decrease quantity when removing product item", () => {
+    cart.add(smartphone);
+    cart.add(smartphone);
+    cart.add(smartphone);
+    
+    cart.remove(1020);
+    
+    expect(cart.items).toHaveLength(1);
+    const item = cart.items[0] as Smartphone;
+    expect(item.quantity).toBe(2);
+    expect(item.price).toBe(120000); 
+  });
+
+  test("should remove item when quantity is 0", () => {
+    cart.add(smartphone);
+    
+    cart.remove(1020);
+    
+    expect(cart.items).toHaveLength(0);
   });
 });
