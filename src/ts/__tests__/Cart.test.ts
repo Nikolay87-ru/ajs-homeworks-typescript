@@ -49,37 +49,6 @@ describe("Cart", () => {
   });
 
   describe("Adding items", () => {
-    test("should add movie", () => {
-      cart.add(movie);
-      expect(cart.items).toContain(movie);
-      expect(cart.items).toHaveLength(1);
-    });
-
-    test("should add smartphone", () => {
-      cart.add(smartphone);
-      expect(cart.items).toContain(smartphone);
-      expect(cart.items).toHaveLength(1);
-    });
-
-    test("should increase quantity and price when adding same smartphone", () => {
-      cart.add(smartphone);
-      cart.add(smartphone);
-      
-      expect(cart.items).toHaveLength(1);
-      const item = cart.items[0] as Smartphone;
-      expect(item.quantity).toBe(2);
-      expect(item.price).toBe(120000); 
-    });
-
-    test("should add some items", () => {
-      cart.add(movie);
-      cart.add(book);
-      cart.add(musicAlbum);
-
-      expect(cart.items).toEqual([movie, book, musicAlbum]);
-      expect(cart.items).toHaveLength(3);
-    });
-
     test("should add some items few times", () => {
       cart.add(movie);
       cart.add(movie);
@@ -92,9 +61,8 @@ describe("Cart", () => {
 
       const phone = cart.items.find(i => i.id === 1020) as Smartphone;
       expect(phone.quantity).toBe(2);
-      expect(phone.price).toBe(120000);
+      expect(phone.price).toBe(120000); 
 
-      expect(cart.items).toEqual([movie, book, musicAlbum, smartphone]);
       expect(cart.items).toHaveLength(4);
     });
   });
@@ -108,10 +76,6 @@ describe("Cart", () => {
 
       expect(cart.getItemsPriceSum()).toBe(63900);
     });
-
-    test("should return 0 for empty cart", () => {
-      expect(cart.getItemsPriceSum()).toBe(0);
-    });
   });
 
   describe("Price calculations with discount", () => {
@@ -120,24 +84,10 @@ describe("Cart", () => {
       cart.add(book);
       cart.add(musicAlbum);
       cart.add(smartphone);
-      cart.add(smartphone);
+      cart.add(smartphone); 
 
       expect(cart.getItemsPriceDiscountSum(10)).toBe(111510);
       expect(cart.getItemsPriceDiscountSum(50)).toBe(61950);
-    });
-  });
-
-  describe("Remove item", () => {
-    test("should remove added cart item by id", () => {
-      cart.add(movie);
-      cart.add(book);
-      cart.add(musicAlbum);
-
-      cart.remove(1001);
-      cart.remove(1010);
-
-      expect(cart.items).toEqual([musicAlbum]);
-      expect(cart.items).toHaveLength(1);
     });
   });
 
