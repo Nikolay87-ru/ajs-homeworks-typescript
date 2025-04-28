@@ -15,11 +15,10 @@ describe("Cart", () => {
     "Avengers Assemble!",
     ["fantasy", "action", "adventure"],
     "143 мин",
-    "digital",
-    1
+    "digital"
   );
-  const book = new Book(1001, "War and Piece", "Leo Tolstoy", 2000, 1225, "digital", 1);
-  const musicAlbum = new MusicAlbum(1008, "Meteora", "Linkin Park", 900, "digital", 1);
+  const book = new Book(1001, "War and Piece", "Leo Tolstoy", 2000, 1225, "digital");
+  const musicAlbum = new MusicAlbum(1008, "Meteora", "Linkin Park", 900, "digital");
 
   beforeEach(() => {
     cart = new Cart();
