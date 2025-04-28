@@ -36,7 +36,7 @@ describe("Cart", () => {
     "digital",
     1
   );
-  const smartphone = new Smartphone(1020, "iPhone 13", 60000, "smartphone", 1);
+  const smartphone = new Smartphone(1020, "iPhone 13", 60000, "product", 1);
 
   beforeEach(() => {
     cart = new Cart();
