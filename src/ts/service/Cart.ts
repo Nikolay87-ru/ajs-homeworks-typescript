@@ -4,19 +4,20 @@ export default class Cart {
   private _items: Buyable[] = [];
 
   add(item: Buyable): void {
-    const isItemAlreadyAdded = this._items.find(
+    const existingItem = this._items.find(
       (existItem) => existItem.id === item.id
     );
 
-    if (item.type === "digital" && isItemAlreadyAdded) {
+    if (item.type === "digital") {
+      if (!existingItem) {
+        this._items.push(item);
+      }
       return;
-    } else {
-      this._items.push(item);
     }
 
-    if (item.type === "product" && isItemAlreadyAdded) {
-      item.quantity++;
-      item.price * 2;
+    if (existingItem) {
+      existingItem.quantity += 1;
+      existingItem.price += item.price;
     } else {
       this._items.push(item);
     }
@@ -24,7 +25,15 @@ export default class Cart {
 
   remove(id: number): void {
     const index = this._items.findIndex((item) => item.id === id);
-    if (index !== -1) {
+    
+    if (index === -1) return;
+
+    const item = this._items[index];
+
+    if (item.type === "product" && item.quantity > 1) {
+      item.quantity -= 1;
+      item.price -= item.price / (item.quantity + 1);
+    } else {
       this._items.splice(index, 1);
     }
   }
@@ -34,10 +43,7 @@ export default class Cart {
   }
 
   getItemsPriceSum(): number {
-    return this._items.reduce(
-      (sum: number, item: Buyable): number => sum + item.price,
-      0
-    );
+    return this._items.reduce((sum, item) => sum + item.price, 0);
   }
 
   getItemsPriceDiscountSum(discount: number): number {
