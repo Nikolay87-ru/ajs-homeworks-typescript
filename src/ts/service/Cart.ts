@@ -1,28 +1,38 @@
-import Buyable from '../domain/Buyable';
+import Buyable from "../domain/Buyable";
 
 export default class Cart {
-    private _items: Buyable[] = [];
+  private _items: Buyable[] = [];
 
-    add(item: Buyable): void {
-        this._items.push(item);
+  add(item: Buyable): void {
+    const type = item.type;
+    const quantity = item.quantity;
+
+    if (type === 'digital' && quantity >= 1) {
+        return;
     }
 
-    remove(id: number): void {
-        const index = this._items.findIndex(item => item.id === id);
-        if (index !== -1) {
-            this._items.splice(index, 1);
-        }
-    }
+    this._items.push(item);
+  }
 
-    get items(): Buyable[] {
-        return [...this._items]; 
+  remove(id: number): void {
+    const index = this._items.findIndex((item) => item.id === id);
+    if (index !== -1) {
+      this._items.splice(index, 1);
     }
+  }
 
-    getItemsPriceSum(): number {
-        return this._items.reduce((sum: number, item: Buyable): number => sum + item.price, 0);
-    }
+  get items(): Buyable[] {
+    return [...this._items];
+  }
 
-    getItemsPriceDiscountSum(discount: number): number {
-        return this.getItemsPriceSum() * (1 - discount / 100);
-    }
+  getItemsPriceSum(): number {
+    return this._items.reduce(
+      (sum: number, item: Buyable): number => sum + item.price,
+      0
+    );
+  }
+
+  getItemsPriceDiscountSum(discount: number): number {
+    return this.getItemsPriceSum() * (1 - discount / 100);
+  }
 }
