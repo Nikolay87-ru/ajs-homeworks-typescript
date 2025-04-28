@@ -6,7 +6,7 @@ export default class Cart {
   add(item: Buyable): void {
     if (item.type === "digital") {
       const isItemAlreadyAdded = this._items.find(
-        (existing) => existing.id === item.id
+        (existItem) => existItem.id === item.id
       );
       if (isItemAlreadyAdded) {
         return;
