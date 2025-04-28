@@ -4,11 +4,13 @@ export default class Cart {
   private _items: Buyable[] = [];
 
   add(item: Buyable): void {
-    const type = item.type;
-    const quantity = item.quantity;
-
-    if (type === 'digital' && quantity >= 1) {
+    if (item.type === "digital") {
+      const isItemAlreadyAdded = this._items.find(
+        (existing) => existing.id === item.id
+      );
+      if (isItemAlreadyAdded) {
         return;
+      }
     }
 
     this._items.push(item);
