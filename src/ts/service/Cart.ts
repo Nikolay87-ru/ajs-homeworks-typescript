@@ -4,16 +4,22 @@ export default class Cart {
   private _items: Buyable[] = [];
 
   add(item: Buyable): void {
-    if (item.type === "digital") {
-      const isItemAlreadyAdded = this._items.find(
-        (existItem) => existItem.id === item.id
-      );
-      if (isItemAlreadyAdded) {
-        return;
-      }
+    const isItemAlreadyAdded = this._items.find(
+      (existItem) => existItem.id === item.id
+    );
+
+    if (item.type === "digital" && isItemAlreadyAdded) {
+      return;
+    } else {
+      this._items.push(item);
     }
 
-    this._items.push(item);
+    if (item.type === "product" && isItemAlreadyAdded) {
+      item.quantity++;
+      item.price * 2;
+    } else {
+      this._items.push(item);
+    }
   }
 
   remove(id: number): void {
