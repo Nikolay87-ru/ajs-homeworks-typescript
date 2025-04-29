@@ -1,4 +1,4 @@
-import Buyable from "./Buyable";
+import Buyable, { ItemType } from "./Buyable";
 
 export default class Book implements Buyable {
   constructor(
@@ -7,7 +7,7 @@ export default class Book implements Buyable {
     readonly author: string,
     public price: number,
     readonly pages: number,
-    readonly type: string,
+    readonly type: ItemType = ItemType.Digital,
     public quantity: number
   ) {}
 }
