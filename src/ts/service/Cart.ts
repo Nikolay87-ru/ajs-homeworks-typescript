@@ -1,4 +1,4 @@
-import Buyable from "../domain/Buyable";
+import Buyable, { ItemType } from "../domain/Buyable";
 
 export default class Cart {
   private _items: Buyable[] = [];
@@ -6,7 +6,7 @@ export default class Cart {
   add(item: Buyable): void {
     const existingItem = this._items.find(existItem => existItem.id === item.id);
 
-    if (item.type === "digital") {
+    if (item.type === ItemType.Digital) {
       if (!existingItem) {
         this._items.push({...item});
       }
@@ -27,7 +27,7 @@ export default class Cart {
 
     const item = this._items[index];
     
-    if (item.type === "product" && item.quantity > 1) {
+    if (item.type === ItemType.Product && item.quantity > 1) {
       item.quantity -= 1;
       item.price = (item.price / (item.quantity + 1)) * item.quantity;
     } else {
