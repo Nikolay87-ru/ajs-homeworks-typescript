@@ -3,6 +3,7 @@ import Movie from "../domain/Movie";
 import MusicAlbum from "../domain/MusicAlbum";
 import Book from "../domain/Book";
 import Smartphone from "../domain/Smartphone";
+import { ItemType } from "../domain/Buyable";
 
 describe("Cart", () => {
   let cart: Cart;
@@ -16,7 +17,7 @@ describe("Cart", () => {
     "Avengers Assemble!",
     ["fantasy", "action", "adventure"],
     "143 мин",
-    "digital",
+    ItemType.Digital,
     1
   );
   const book = new Book(
@@ -25,7 +26,7 @@ describe("Cart", () => {
     "Leo Tolstoy",
     2000,
     1225,
-    "digital",
+    ItemType.Digital,
     1
   );
   const musicAlbum = new MusicAlbum(
@@ -33,10 +34,10 @@ describe("Cart", () => {
     "Meteora",
     "Linkin Park",
     900,
-    "digital",
+    ItemType.Digital,
     1
   );
-  const smartphone = new Smartphone(1020, "iPhone 13", 60000, "product", 1);
+  const smartphone = new Smartphone(1020, "iPhone 13", 60000, ItemType.Product, 1);
 
   beforeEach(() => {
     cart = new Cart();
